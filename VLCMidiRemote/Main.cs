@@ -37,34 +37,41 @@ namespace VLCMidiRemote
 
         private void PlayPlayListItem(int iItem)
         {
-            WebRequest req;
-            req = WebRequest.Create("http://" + Properties.Settings.Default.VLCAddress.ToString() +
-                "/requests/status.xml?command=pl_play&id="  + iItem.ToString());
-            // Note to self: netCredential does not work with VLC, as it does not challenge
-            // properly the client. Work around: add auth header directly
-            string credentials = String.Format("{0}:{1}", "", Properties.Settings.Default.VLCPassword.ToString());
-            logMe("http://" + Properties.Settings.Default.VLCAddress.ToString() +
-                "/requests/status.xml?command=pl_play&id=" + iItem.ToString());
-            byte[] bytes = Encoding.ASCII.GetBytes(credentials);
-            string base64 = Convert.ToBase64String(bytes); 
-            string authorization = String.Concat("Basic ", base64);
-            req.Headers.Add("Authorization", authorization);
 
-            var response = "";
-            try
-            {
-                response = req.GetResponse().ToString();
+            System.Diagnostics.Debug.WriteLine("Hello world");
+             WebRequest req;
+             req = WebRequest.Create("http://" + Properties.Settings.Default.VLCAddress.ToString() +
+                 "/requests/status.xml?command=pl_play&id="  + iItem.ToString());
+             // Note to self: netCredential does not work with VLC, as it does not challenge
+             // properly the client. Work around: add auth header directly
+             System.Diagnostics.Debug.WriteLine("Hello world");
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+
+
+             string credentials = String.Format("{0}:{1}", "", Properties.Settings.Default.VLCPassword.ToString());
+             logMe("http://" + Properties.Settings.Default.VLCAddress.ToString() +
+                 "/requests/status.xml?command=pl_play&id=" + iItem.ToString());
+             byte[] bytes = Encoding.ASCII.GetBytes(credentials);
+             string base64 = Convert.ToBase64String(bytes); 
+             string authorization = String.Concat("Basic", base64);
+             req.Headers.Add("Authorization", authorization);
+
+             var response = "";
+             try
+             {
+                 response = req.GetResponse().ToString();
+
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.ToString());
+             }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            initMidi();
+           initMidi();
         }
 
         private void initMidi()
@@ -109,7 +116,7 @@ namespace VLCMidiRemote
 
 
                         context = SynchronizationContext.Current;
-                    inDevice = new InputDevice(1);
+                    inDevice = new InputDevice(selectedDeviceId);
                     inDevice.ChannelMessageReceived += HandleChannelMessageReceived;
                     inDevice.Error += new EventHandler<ErrorEventArgs>(inDevice_Error);
                     inDevice.StartRecording();
