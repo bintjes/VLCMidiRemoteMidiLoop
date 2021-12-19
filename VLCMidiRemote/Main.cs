@@ -17,6 +17,7 @@ namespace VLCMidiRemote
         private const int SysExBufferSize = 128;
         private InputDevice inDevice = null;
         private SynchronizationContext context;
+        
 
         public Main()
         {
@@ -38,12 +39,14 @@ namespace VLCMidiRemote
         {
             WebRequest req;
             req = WebRequest.Create("http://" + Properties.Settings.Default.VLCAddress.ToString() +
-                "/requests/status.xml?command=pl_play&id=" + iItem.ToString());
+                "/requests/status.xml?command=pl_play&id="  + iItem.ToString());
             // Note to self: netCredential does not work with VLC, as it does not challenge
             // properly the client. Work around: add auth header directly
             string credentials = String.Format("{0}:{1}", "", Properties.Settings.Default.VLCPassword.ToString());
+            logMe("http://" + Properties.Settings.Default.VLCAddress.ToString() +
+                "/requests/status.xml?command=pl_play&id=" + iItem.ToString());
             byte[] bytes = Encoding.ASCII.GetBytes(credentials);
-            string base64 = Convert.ToBase64String(bytes);
+            string base64 = Convert.ToBase64String(bytes); 
             string authorization = String.Concat("Basic ", base64);
             req.Headers.Add("Authorization", authorization);
 
@@ -66,6 +69,9 @@ namespace VLCMidiRemote
 
         private void initMidi()
         {
+
+            
+            string midiDeviceName = "loopMIDI Port";
             if (InputDevice.DeviceCount == 0)
             {
                 MessageBox.Show("No MIDI input devices available.", "Error!",
@@ -77,14 +83,37 @@ namespace VLCMidiRemote
                 try
                 {
                     logMe("Found " + InputDevice.DeviceCount.ToString() +
-                        " midi devices. Initializing MIDI interface... ");
+                        " midi devices. Initializing MIDI interface...\n ");
 
-                    context = SynchronizationContext.Current;
-                    inDevice = new InputDevice(0);
+                    int selectedDeviceId = -1;
+                    for (int i = 0; i < InputDevice.DeviceCount; i++)
+                    {
+                        var midiCap = InputDevice.GetDeviceCapabilities(i);
+                        logMe(midiCap.name + "\n");
+                        if (midiCap.name == midiDeviceName)
+                        {
+                            selectedDeviceId = i;
+                            break;
+                        }
+
+
+                    }
+                    if (selectedDeviceId == -1)
+                    {
+                        logMe("Midi device not detected\n");
+                    }
+                    else
+                    {
+                        logMe("Midi device  detected\n");
+                    }
+
+
+                        context = SynchronizationContext.Current;
+                    inDevice = new InputDevice(1);
                     inDevice.ChannelMessageReceived += HandleChannelMessageReceived;
                     inDevice.Error += new EventHandler<ErrorEventArgs>(inDevice_Error);
                     inDevice.StartRecording();
-                    logMe("Done!\n");
+                    logMe("Done INITIALIZING !\n");
                 }
                 catch (Exception ex)
                 {
@@ -104,6 +133,7 @@ namespace VLCMidiRemote
         {
             context.Post(delegate (object dummy)
             {
+
                 if (cbDebug.Checked)
                 {
                     logMe("Got MIDI " + e.Message.Command.ToString() +
