@@ -6,7 +6,8 @@
     "\\VLCMidiRemote\\bin",
     "\\VLCMidiRemote\\bin\\Debug",
     "\\VLCMidiRemote\\obj",
-    "\\VLCMidiRemote\\obj\\Debug"
+    "\\VLCMidiRemote\\obj\\Debug",
+    "\\VLCMidiRemote\\Properties"
   ],
   "SelectedNode": "\\VLCMidiRemote\\Main.cs",
   "PreviewInSolutionExplorer": false

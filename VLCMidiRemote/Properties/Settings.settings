@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VLCMidiRemote.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="VLCPassword" Type="System.String" Scope="User">
@@ -8,14 +8,11 @@
     <Setting Name="VLCAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1:8080</Value>
     </Setting>
-    <Setting Name="VLCPlaylist" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Videos\sd.playlist.xspf</Value>
-    </Setting>
     <Setting Name="VLCPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files\VideoLAN\VLC\vlc.exe</Value>
     </Setting>
-    <Setting Name="MidiDevice" Type="System.String" Scope="User">
-      <Value Profile="(Default)">loopMIDI Port</Value>
+    <Setting Name="VLCPlaylist" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Dell\Documents\Ableton\projects\ci git stardust\videos\playlist.xspf</Value>
     </Setting>
   </Settings>
 </SettingsFile>

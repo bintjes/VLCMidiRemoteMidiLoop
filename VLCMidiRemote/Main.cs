@@ -37,17 +37,11 @@ namespace VLCMidiRemote
 
         private void PlayPlayListItem(int iItem)
         {
-
-            System.Diagnostics.Debug.WriteLine("Hello world");
              WebRequest req;
              req = WebRequest.Create("http://" + Properties.Settings.Default.VLCAddress.ToString() +
                  "/requests/status.xml?command=pl_play&id="  + iItem.ToString());
              // Note to self: netCredential does not work with VLC, as it does not challenge
              // properly the client. Work around: add auth header directly
-             System.Diagnostics.Debug.WriteLine("Hello world");
-
-
-
              string credentials = String.Format("{0}:{1}", "", Properties.Settings.Default.VLCPassword.ToString());
              logMe("http://" + Properties.Settings.Default.VLCAddress.ToString() +
                  "/requests/status.xml?command=pl_play&id=" + iItem.ToString());
@@ -66,7 +60,6 @@ namespace VLCMidiRemote
              {
                  MessageBox.Show(ex.ToString());
              }
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -96,9 +89,10 @@ namespace VLCMidiRemote
                     for (int i = 0; i < InputDevice.DeviceCount; i++)
                     {
                         var midiCap = InputDevice.GetDeviceCapabilities(i);
-                        logMe(midiCap.name + "\n");
+                        logMe(i + " -  " +midiCap.name + "\n");
                         if (midiCap.name == midiDeviceName)
                         {
+                            logMe("device detected on position " + i + " " +  midiCap.name + "\n");
                             selectedDeviceId = i;
                             break;
                         }
@@ -109,13 +103,9 @@ namespace VLCMidiRemote
                     {
                         logMe("Midi device not detected\n");
                     }
-                    else
-                    {
-                        logMe("Midi device  detected\n");
-                    }
 
 
-                        context = SynchronizationContext.Current;
+                    context = SynchronizationContext.Current;
                     inDevice = new InputDevice(selectedDeviceId);
                     inDevice.ChannelMessageReceived += HandleChannelMessageReceived;
                     inDevice.Error += new EventHandler<ErrorEventArgs>(inDevice_Error);
@@ -154,7 +144,16 @@ namespace VLCMidiRemote
                     {
                         // 48 == C3
                         int iPlaylistItem = e.Message.Data1 - 48;
-                        logMe("Playing playlist item #" + iPlaylistItem.ToString() + "\n");
+                        if (cbDebug.Checked)
+                        {
+                            logMe("midi channel " + (e.Message.MidiChannel + 1) + "\n");
+                            logMe("Playing playlist item #" + iPlaylistItem.ToString() + "\n");
+                            logMe("Got MIDI " + e.Message.Command.ToString() +
+                                " on channel " + (e.Message.MidiChannel + 1) + ", note: " +
+                                e.Message.Data1 + "\n");
+                        }
+                        
+
                         PlayPlayListItem(iPlaylistItem + 4);
                     }
                 }
@@ -179,7 +178,7 @@ namespace VLCMidiRemote
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = Properties.Settings.Default.VLCPath;
-            startInfo.Arguments = @"--extraintf http """ + 
+            startInfo.Arguments = @" --extraintf http """ +  
                 Properties.Settings.Default.VLCPlaylist.ToString() + @"""";
             logMe("Starting VLC... ");
             Process.Start(startInfo);
@@ -194,6 +193,16 @@ namespace VLCMidiRemote
         {
             rtbLogs.Text += strText;
             rtbLogs.ScrollToCaret();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

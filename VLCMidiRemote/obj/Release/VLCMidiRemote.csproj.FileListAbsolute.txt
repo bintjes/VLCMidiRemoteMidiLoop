@@ -1,0 +1,14 @@
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\bin\Release\VLCMidiRemote.exe.config
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\bin\Release\VLCMidiRemote.exe
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\bin\Release\VLCMidiRemote.pdb
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\bin\Release\Sanford.Multimedia.Midi.dll
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\bin\Release\Sanford.Multimedia.Midi.xml
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.csproj.SuggestedBindingRedirects.cache
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.Main.resources
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.Properties.Resources.resources
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.csproj.GenerateResource.cache
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.csproj.CopyComplete
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.exe
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.pdb
+C:\Users\Dell\source\repos\VLCMidiRemote\VLCMidiRemote\obj\Release\VLCMidiRemote.csproj.AssemblyReference.cache
